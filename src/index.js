@@ -14,12 +14,8 @@ const pdp = path.join(__dirname, '../public');
 
 app.use(express.static(pdp));
 
-// let count = 0;
 io.on('connection', (socket) => {
     console.log('New websuckit connection!');
-
-    // count++;
-    // console.log('Incremented count to ' + count);
 
     socket.on('join', ({ username, room }, callback) => {
         const { error, user } = addUser({
@@ -33,7 +29,6 @@ io.on('connection', (socket) => {
         }
 
         socket.join(user.room);
-        // socket.emit('message', generateMessage('Welcome user' + count + '!'));
         socket.emit('message', generateMessage('ADMIN', 'Welcome [' + user.username + ']!'));
         socket.broadcast.to(user.room).emit('message', generateMessage('ADMIN', `A new user called [${user.username}] has joined the party!`));
         io.to(user.room).emit('roomData', {

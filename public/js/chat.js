@@ -1,21 +1,11 @@
 const socket = io();
 
-// socket.on('countUpdated', (count) => {
-//     console.log('The cunt has been updated to ' + count);
-// });
-//
-// const btn = document.getElementById('increment');
-// btn.addEventListener('click', () => {
-//     socket.emit('increment');
-// });
-
 /** ------------------------ SETUP ------------------------  */
 // --- Elements
 const messageForm = document.getElementById('message-form');
 const messageFormInput = messageForm.querySelector('input');
 const messageFormButton = messageForm.querySelector('button');
 const messages = document.getElementById('messages');
-// const history = document.getElementById('message-history');
 const userList = document.getElementById('user-list');
 
 // --- Templates
@@ -28,7 +18,7 @@ const { username, room } = Qs.parse(location.search, {ignoreQueryPrefix: true});
 
 // --- Autoscroll
 const autoscroll = () => {
-    // New messages
+    // New message
     const $newMessage = messages.lastElementChild;
 
     //Height of the new message
@@ -77,9 +67,6 @@ socket.on('message', (data) => {
         username: data.username
     });
     messages.insertAdjacentHTML('beforeend', html);
-    // const br = document.createElement('br');
-    // history.append(msg);
-    // history.appendChild(br);
     autoscroll();
 });
 
